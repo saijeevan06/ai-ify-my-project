@@ -19,6 +19,7 @@ const Privacy = lazy(() => import('@/pages/Routes').then((m) => ({ default: m.Pr
 const NotFound = lazy(() => import('@/pages/Routes').then((m) => ({ default: m.NotFound })));
 const QRPage = lazy(() => import('@/pages/Tools').then((m) => ({ default: m.QRPage })));
 const OgPage = lazy(() => import('@/pages/Tools').then((m) => ({ default: m.OgPage })));
+const Deck = lazy(() => import('@/pages/Deck'));
 const PackPage = lazy(() => import('@/pages/Tools').then((m) => ({ default: m.PackPage })));
 
 function RouteEffects() {
@@ -51,6 +52,7 @@ function Shell() {
           <Route path="/pack" element={<PackPage />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/qr" element={<QRPage />} />
+          <Route path="/deck" element={<Deck />} />
           <Route path="/og" element={<OgPage />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />

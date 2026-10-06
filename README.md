@@ -13,6 +13,19 @@ project idea → AI upgrade → see value → register → referral link → 3 f
 
 ---
 
+## Deliverables
+
+| | |
+|---|---|
+| Growth plan (6 slides) | [`/deck`](src/pages/Deck.tsx) in the app · [PDF](public/plan/Growth-Plan.pdf) · [PPTX](deliverables/Growth-Plan.pptx) |
+| 3 tests, form answers | [docs/submission.md](docs/submission.md) |
+| AI worklog | [docs/ai-worklog.md](docs/ai-worklog.md) |
+| 3-minute video script + recording guide | [docs/video-script.md](docs/video-script.md) |
+
+To rebuild the deck after editing `src/pages/Deck.tsx`: `npm run dev` → open `/deck` → **Export slides** → `npm run deck`.
+
+---
+
 ## Quick start
 
 ```bash

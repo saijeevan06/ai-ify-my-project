@@ -1,7 +1,7 @@
 import express, { type Request, type Response, type NextFunction } from 'express';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
 import { env } from './env.ts';
 import { store } from './store.ts';
 import { aiEnabled, generateBlueprint } from './ai.ts';
@@ -13,13 +13,16 @@ import { firstName, makeId } from '../shared/ids.ts';
 const app = express();
 app.set('trust proxy', 1);
 app.disable('x-powered-by');
-// Dev-only: save the rendered OpenGraph image produced by /og.
-app.post('/api/dev/og', express.json({ limit: '4mb' }), (req, res) => {
+// Dev-only: save renders from /og (social image) and /deck (growth-plan slides).
+app.post('/api/dev/save', express.json({ limit: '12mb' }), (req, res) => {
   if (env.production) return fail(res, 404, 'not_found', 'Not found');
+  const name = String(req.body?.name ?? '');
+  const target = name === 'og.png' ? join('public', 'og.png') : /^slide-\d{1,2}\.png$/.test(name) ? join('deliverables', 'slides', name) : null;
   const m = String(req.body?.dataUrl ?? '').match(/^data:image\/png;base64,(.+)$/);
-  if (!m) return fail(res, 400, 'bad_image', 'Expected a PNG data URL');
-  writeFileSync(join('public', 'og.png'), Buffer.from(m[1]!, 'base64'));
-  res.json({ ok: true });
+  if (!target || !m) return fail(res, 400, 'bad_request', 'Expected og.png or slide-N.png as a PNG data URL');
+  mkdirSync(dirname(target), { recursive: true });
+  writeFileSync(target, Buffer.from(m[1]!, 'base64'));
+  res.json({ ok: true, saved: target });
 });
 
 app.use(express.json({ limit: '64kb' }));

@@ -105,7 +105,7 @@ export function OgPage() {
     if (!ref.current) return;
     await document.fonts.ready;
     const dataUrl = await toPng(ref.current, { width: 1200, height: 630, pixelRatio: 1 });
-    const r = await fetch('/api/dev/og', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ dataUrl }) });
+    const r = await fetch('/api/dev/save', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name: 'og.png', dataUrl }) });
     setStatus(r.ok ? 'Saved to public/og.png' : 'Save failed (dev server only)');
   };
   return (

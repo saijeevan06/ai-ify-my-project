@@ -1,0 +1,45 @@
+{
+  "name": "ai-ify-my-project",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Turn a final-year engineering project into an AI-powered project — growth loop for a free AI workshop.",
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c gray,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:web": "vite",
+    "dev:api": "tsx watch server/index.ts",
+    "build": "tsc --noEmit && vite build",
+    "start": "tsx server/index.ts --prod",
+    "typecheck": "tsc --noEmit",
+    "preview": "npm run build && npm start"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "@types/qrcode": "^1.5.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.5",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.3"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "express": "^5.2.1",
+    "html-to-image": "^1.11.13",
+    "lucide-react": "^1.52.0",
+    "motion": "^14.0.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router": "^7.18.4",
+    "tsx": "^4.23.15",
+    "zod": "^4.6.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
